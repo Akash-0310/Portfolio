@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { LoadingScreen } from '@/components/special/LoadingScreen'
 import { CommandPalette, CommandPaletteHint } from '@/components/special/CommandPalette'
+import { ThemeToggle } from '@/components/special/ThemeToggle'
 import { CustomCursor } from '@/components/effects/CustomCursor'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
@@ -66,6 +67,7 @@ export default function Home() {
             <Contact />
           </main>
           <Footer />
+          <ThemeToggle />
           <CommandPaletteHint />
         </>
       )}

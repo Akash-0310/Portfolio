@@ -123,7 +123,7 @@ export function CommandPalette() {
 export function CommandPaletteHint() {
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-3 py-2 rounded-xl glass text-xs text-white/30 hidden md:flex"
+      className="fixed bottom-7 right-[72px] z-40 flex items-center gap-2 px-3 py-2 rounded-xl glass text-xs text-white/30 hidden md:flex"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2 }}
