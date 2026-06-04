@@ -342,19 +342,9 @@ html.light .bg-white\/7  { background-color: rgba(0,0,0,0.05) !important; }
 html.light .bg-white\/8  { background-color: rgba(0,0,0,0.06) !important; }
 html.light .bg-white\/10 { background-color: rgba(0,0,0,0.07) !important; }
 
-/* Dark hardcoded backgrounds used in components */
-html.light .bg-\[#080810\]    { background-color: #f5f4ff !important; }
-html.light .bg-\[#0d0d18\]    { background-color: #eeeeff !important; }
-
-/* Gradient overlay stops: replace dark bg with light bg */
-html.light .from-\[#080810\]   { --tw-gradient-from: #f5f4ff var(--tw-gradient-from-position); --tw-gradient-stops: var(--tw-gradient-from), transparent; }
-html.light .from-\[#0d0d18\]   { --tw-gradient-from: #eeeeff var(--tw-gradient-from-position); --tw-gradient-stops: var(--tw-gradient-from), transparent; }
-html.light .to-\[#080810\]     { --tw-gradient-to: #f5f4ff var(--tw-gradient-to-position); }
-html.light .via-transparent    { --tw-gradient-via: transparent; }
-
-/* Overlay backdrops (mobile menu, modals) */
-html.light .bg-\[#080810\]\/90  { background-color: rgba(245,244,255,0.92) !important; }
-html.light .bg-\[#080810\]\/95  { background-color: rgba(245,244,255,0.96) !important; }
+/* Overlay backdrops — catch all absolute/fixed dark divs in light mode */
+html.light main,
+html.light footer { background-color: transparent; }
 
 /* ── Form fields ── */
 html.light input,
