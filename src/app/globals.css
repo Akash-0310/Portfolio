@@ -378,8 +378,5 @@ html.light ::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); }
 /* ── Selection ── */
 html.light ::selection { background: rgba(139,92,246,0.18); color: #0f0f1a; }
 
-/* ── LoadingScreen bg ── */
-html.light .fixed.inset-0.bg-\[#080810\] { background-color: #f5f4ff !important; }
-
 /* Mix-blend-mode on custom cursor — still looks good on light */
 html.light .cursor-dot { mix-blend-mode: exclusion; }
