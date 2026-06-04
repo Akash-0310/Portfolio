@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Akash Singh — Developer Portfolio
+
+Ultra-premium cinematic developer portfolio built with Next.js 16, TypeScript, Framer Motion, and Tailwind CSS v4.
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Animations | Framer Motion |
+| Icons | Lucide React + custom SVG brand icons |
+| Fonts | Geist Sans + Geist Mono |
+
+## Features
+
+- Cinematic loading screen with animated progress bar
+- Custom cursor with magnetic hover effects (desktop only)
+- Command palette (`Ctrl/Cmd + K`) with keyboard navigation
+- Smooth section navigation
+- Interactive hero with typewriter role cycling and floating tech badges
+- Animated stats with count-up on scroll
+- Experience timeline with expandable accordion cards
+- Skills constellation with category switching and orbit visualization
+- Project showcase with cinematic modal case studies
+- GitHub stats dashboard with contribution heatmap
+- Contact form with success state animation
+- Scroll progress bar in navigation
+- Glassmorphism panels throughout
+- Mouse-reactive lighting effects
+- Mobile responsive with adaptive navigation
+
+## Sections
+
+1. **Hero** — Cinematic intro with typewriter, floating tech elements
+2. **About** — Story-driven bio, animated stats, work philosophy
+3. **Experience** — TCS + BestPeers accordion timeline
+4. **Skills** — Category-switching with orbit visualization
+5. **Projects** — Simhealth + MoonLight with modal case studies
+6. **Testimonials** — Glass testimonial cards
+7. **GitHub Stats** — Contribution heatmap + language breakdown
+8. **Blog** — Engineering insight cards
+9. **Contact** — Animated form with social links
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All content lives in **one file**: `src/lib/data.ts`
 
-## Learn More
+Update these exports to personalize:
+- `siteConfig` — name, email, phone, bio, social links
+- `roles` — typewriter cycling titles
+- `experience` — work history with highlights and tech
+- `projects` — project details with metrics and features
+- `skills` — categorized skill sets with proficiency levels
+- `stats` — hero stats (years, projects, etc.)
+- `blogPosts` — blog article cards
+- `testimonials` — social proof cards
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Option 1: Vercel dashboard
+# Push to GitHub → import on vercel.com → deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Option 2: Vercel CLI
+npm install -g vercel
+vercel --prod
+```
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/
+│   ├── layout.tsx       # Root layout with SEO metadata
+│   ├── page.tsx         # Main page — assembles all sections
+│   └── globals.css      # Design system: CSS vars, animations, utilities
+├── components/
+│   ├── effects/         # Visual: cursor, particles, grid backgrounds
+│   ├── layout/          # Navbar (with scroll progress), Footer
+│   ├── sections/        # All 9 page sections
+│   ├── special/         # Loading screen, command palette
+│   └── ui/              # Badge, Button, GlassCard, SectionHeader, icons
+├── hooks/
+│   ├── useMousePosition # Throttled mouse tracking for reactive effects
+│   └── useInView        # Intersection observer wrapper
+└── lib/
+    ├── data.ts          # All portfolio content (single source of truth)
+    ├── animations.ts    # Framer Motion presets (fadeInUp, stagger, etc.)
+    └── utils.ts         # cn(), clamp(), lerp()
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT — free to use and customize.
