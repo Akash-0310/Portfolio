@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { Menu, X, Terminal } from 'lucide-react'
+import { Menu, X, Code2 } from 'lucide-react'
 import { siteConfig } from '@/lib/data'
 
 const NAV_LINKS = [
@@ -57,7 +57,7 @@ export function Navbar() {
           <nav className="flex items-center justify-between px-5 py-3">
             <button onClick={() => scrollTo('#hero')} className="flex items-center gap-2 group">
               <div className="w-8 h-8 rounded-lg bg-violet-600/20 border border-violet-500/30 flex items-center justify-center group-hover:bg-violet-600/30 transition-colors">
-                <Terminal className="w-4 h-4 text-violet-400" />
+                <Code2 className="w-4 h-4 text-violet-400" />
               </div>
               <span className="font-semibold text-white tracking-tight">
                 {siteConfig.name.split(' ')[0]}<span className="text-violet-400">.</span>
