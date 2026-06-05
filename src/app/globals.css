@@ -2,6 +2,8 @@
 @source "../../**/*.{ts,tsx}";
 
 :root {
+  /* Global font scale — multiplies every font size on the site uniformly */
+  --font-scale: 1.125;
   --background: #080810;
   --foreground: #e2e8f0;
   --primary: #8b5cf6;
@@ -21,6 +23,24 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Scale all Tailwind text-* sizes by --font-scale (line-heights are
+   ratio-based in Tailwind v4, so they scale along automatically) */
+@theme {
+  --text-xs: calc(0.75rem * var(--font-scale));
+  --text-sm: calc(0.875rem * var(--font-scale));
+  --text-base: calc(1rem * var(--font-scale));
+  --text-lg: calc(1.125rem * var(--font-scale));
+  --text-xl: calc(1.25rem * var(--font-scale));
+  --text-2xl: calc(1.5rem * var(--font-scale));
+  --text-3xl: calc(1.875rem * var(--font-scale));
+  --text-4xl: calc(2.25rem * var(--font-scale));
+  --text-5xl: calc(3rem * var(--font-scale));
+  --text-6xl: calc(3.75rem * var(--font-scale));
+  --text-7xl: calc(4.5rem * var(--font-scale));
+  --text-8xl: calc(6rem * var(--font-scale));
+  --text-9xl: calc(8rem * var(--font-scale));
 }
 
 html {
@@ -174,14 +194,14 @@ body {
 .animate-blink { animation: blink 1s step-end infinite; }
 
 .section-title {
-  font-size: clamp(1.75rem, 7vw, 3.5rem);
+  font-size: calc(clamp(1.75rem, 7vw, 3.5rem) * var(--font-scale));
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
 }
 
 .section-subtitle {
-  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  font-size: calc(clamp(0.75rem, 2vw, 0.875rem) * var(--font-scale));
   color: var(--text-muted);
   letter-spacing: 0.18em;
   text-transform: uppercase;

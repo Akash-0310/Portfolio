@@ -54,7 +54,7 @@ function SkillNode({ name, level, color, index, total }: { name: string; level: 
         borderColor: `${color}40`,
         background: `${color}15`,
         color,
-        fontSize: 9,
+        fontSize: 'calc(9px * var(--font-scale))',
       }}
       initial={{ opacity: 0, scale: 0 }}
       whileInView={{ opacity: 1, scale: 1 }}
