@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Code2, Globe, Zap } from 'lucide-react'
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon'
 import { GithubIcon } from '@/components/ui/GithubIcon'
+import { InstagramIcon } from '@/components/ui/InstagramIcon'
 import { HeroBackground } from '@/components/effects/GridBackground'
 import { FloatingParticles } from '@/components/effects/FloatingParticles'
 import { AvailabilityBadge } from '@/components/ui/Badge'
@@ -177,6 +178,7 @@ export function Hero() {
           {[
             { href: siteConfig.github, Icon: GithubIcon, label: 'GitHub' },
             { href: siteConfig.linkedin, Icon: LinkedinIcon, label: 'LinkedIn' },
+            { href: siteConfig.instagram, Icon: InstagramIcon, label: 'Instagram' },
           ].map(({ href, Icon, label }) => (
             <a
               key={label}

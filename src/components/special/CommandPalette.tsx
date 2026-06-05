@@ -4,14 +4,16 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Search, ArrowRight, User, Briefcase, Code2, Mail, X } from 'lucide-react'
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon'
 import { GithubIcon } from '@/components/ui/GithubIcon'
+import { InstagramIcon } from '@/components/ui/InstagramIcon'
 
 const COMMANDS = [
   { id: 'about', label: 'Go to About', icon: User, action: '#about', type: 'navigate' },
   { id: 'experience', label: 'Go to Experience', icon: Briefcase, action: '#experience', type: 'navigate' },
   { id: 'projects', label: 'Go to Projects', icon: Code2, action: '#projects', type: 'navigate' },
   { id: 'contact', label: 'Go to Contact', icon: Mail, action: '#contact', type: 'navigate' },
-  { id: 'github', label: 'Open GitHub Profile', icon: GithubIcon, action: 'https://github.com/akashsingh', type: 'link' },
-  { id: 'linkedin', label: 'Open LinkedIn', icon: LinkedinIcon, action: 'https://linkedin.com/in/akashsingh', type: 'link' },
+  { id: 'github', label: 'Open GitHub Profile', icon: GithubIcon, action: 'https://github.com/Akash-0310', type: 'link' },
+  { id: 'linkedin', label: 'Open LinkedIn', icon: LinkedinIcon, action: 'https://www.linkedin.com/in/akash-singh-34447b213', type: 'link' },
+  { id: 'instagram', label: 'Open Instagram', icon: InstagramIcon, action: 'https://www.instagram.com/akash.03', type: 'link' },
   { id: 'email', label: 'Send an Email', icon: Mail, action: 'mailto:akashdevtech10@gmail.com', type: 'link' },
 ]
 

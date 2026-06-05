@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Mail, MapPin, Send, CheckCircle, Phone, Zap, MessageSquare } from 'lucide-react'
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon'
 import { GithubIcon } from '@/components/ui/GithubIcon'
+import { InstagramIcon } from '@/components/ui/InstagramIcon'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/animations'
 import { siteConfig } from '@/lib/data'
@@ -86,6 +87,7 @@ export function Contact() {
               {[
                 { href: siteConfig.github, Icon: GithubIcon, label: 'GitHub' },
                 { href: siteConfig.linkedin, Icon: LinkedinIcon, label: 'LinkedIn' },
+                { href: siteConfig.instagram, Icon: InstagramIcon, label: 'Instagram' },
                 { href: `mailto:${siteConfig.email}`, Icon: Mail, label: 'Email' },
               ].map(({ href, Icon, label }) => (
                 <a

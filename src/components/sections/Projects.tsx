@@ -212,7 +212,7 @@ export function Projects() {
             <p className="text-sm text-white/40">Currently building in stealth. Check GitHub for the latest.</p>
           </div>
           <a
-            href="https://github.com/akashsingh"
+            href="https://github.com/Akash-0310"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-white/60 text-sm font-medium hover:text-white transition-colors"

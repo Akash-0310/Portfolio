@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Mail, ArrowUp } from 'lucide-react'
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon'
 import { GithubIcon } from '@/components/ui/GithubIcon'
+import { InstagramIcon } from '@/components/ui/InstagramIcon'
 import { siteConfig } from '@/lib/data'
 
 export function Footer() {
@@ -22,6 +23,7 @@ export function Footer() {
             {[
               { href: siteConfig.github, Icon: GithubIcon, label: 'GitHub' },
               { href: siteConfig.linkedin, Icon: LinkedinIcon, label: 'LinkedIn' },
+              { href: siteConfig.instagram, Icon: InstagramIcon, label: 'Instagram' },
               { href: `mailto:${siteConfig.email}`, Icon: Mail, label: 'Email' },
             ].map(({ href, Icon, label }) => (
               <a
