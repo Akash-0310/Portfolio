@@ -82,7 +82,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
               {PHASES[phaseIdx]}
             </motion.span>
             <span className="text-xs font-mono text-violet-400 tabular-nums">
-              {Math.round(progress).toString().padStart(3, '0')}%
+              {Math.round(progress)}%
             </span>
           </div>
         </div>

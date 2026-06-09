@@ -12,9 +12,8 @@ import { About } from '@/components/sections/About'
 import { Experience } from '@/components/sections/Experience'
 import { Skills } from '@/components/sections/Skills'
 import { Projects } from '@/components/sections/Projects'
-import { Testimonials } from '@/components/sections/Testimonials'
 import { GitHubStats } from '@/components/sections/GitHubStats'
-import { Blog } from '@/components/sections/Blog'
+// import { Blog } from '@/components/sections/Blog'
 import { Contact } from '@/components/sections/Contact'
 
 export default function Home() {
@@ -58,12 +57,10 @@ export default function Home() {
             <div className="section-divider" />
             <Projects />
             <div className="section-divider" />
-            <Testimonials />
-            <div className="section-divider" />
             <GitHubStats />
             <div className="section-divider" />
-            <Blog />
-            <div className="section-divider" />
+            {/* <Blog />
+            <div className="section-divider" /> */}
             <Contact />
           </main>
           <Footer />
