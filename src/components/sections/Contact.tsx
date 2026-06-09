@@ -48,12 +48,14 @@ export function Contact() {
           >
             {[
               { icon: Mail, label: 'Email', value: siteConfig.email, href: `mailto:${siteConfig.email}`, color: '#8b5cf6' },
-              { icon: Phone, label: 'Phone', value: siteConfig.phone, href: `tel:${siteConfig.phone}`, color: '#06b6d4' },
+              { icon: Phone, label: 'Phone', value: siteConfig.phone, href: `https://wa.me/${siteConfig.phone.replace(/\D/g, '')}`, external: true, color: '#06b6d4' },
               { icon: MapPin, label: 'Location', value: siteConfig.location, href: '#', color: '#10b981' },
-            ].map(({ icon: Icon, label, value, href, color }) => (
+            ].map(({ icon: Icon, label, value, href, color, external }) => (
               <motion.a
                 key={label}
                 href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
                 className="flex items-center gap-4 p-5 rounded-2xl glass hover:border-white/15 transition-all duration-200 group"
                 variants={fadeInUp}
                 whileHover={{ x: 4 }}
@@ -93,6 +95,8 @@ export function Contact() {
                 <a
                   key={label}
                   href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   aria-label={label}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl glass text-white/50 hover:text-white/80 transition-all text-xs font-medium"
                 >

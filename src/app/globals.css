@@ -46,6 +46,8 @@
 html {
   scroll-behavior: auto;
   height: 100%;
+  /* Offset anchor jumps so section headings land below the fixed navbar */
+  scroll-padding-top: 6rem;
 }
 
 body {

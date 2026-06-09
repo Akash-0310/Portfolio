@@ -29,6 +29,8 @@ export function Footer() {
               <a
                 key={label}
                 href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 aria-label={label}
                 className="w-9 h-9 rounded-lg glass flex items-center justify-center text-white/40 hover:text-white/80 transition-all duration-200"
               >

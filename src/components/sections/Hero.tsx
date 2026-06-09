@@ -183,6 +183,8 @@ export function Hero() {
             <a
               key={label}
               href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
               aria-label={label}
               className="w-10 h-10 rounded-xl glass flex items-center justify-center text-white/40 hover:text-white/80 hover:border-white/20 transition-all duration-200"
             >
@@ -193,7 +195,7 @@ export function Hero() {
           <div className="flex items-center gap-5 text-xs text-white/30 font-mono">
             {[
               { icon: Code2, label: '2+ yrs' },
-              { icon: Zap, label: '15+ projects' },
+              { icon: Zap, label: '3+ projects' },
             ].map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-1.5">
                 <Icon className="w-3 h-3 text-violet-400" />

@@ -53,6 +53,19 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
+        {/* Full-width scrim: blurs & fades content scrolling underneath so it never clashes with headings */}
+        <div
+          className={`absolute inset-0 -z-10 pointer-events-none transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`}
+          style={{
+            background: 'linear-gradient(to bottom, rgba(8,8,16,0.9) 0%, rgba(8,8,16,0.55) 55%, transparent 100%)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+            maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+          }}
+          aria-hidden
+        />
+
         <div className={`mx-4 lg:mx-8 rounded-2xl transition-all duration-300 ${scrolled ? 'glass shadow-xl shadow-black/20' : ''}`}>
           <nav className="flex items-center justify-between px-5 py-3">
             <button onClick={() => scrollTo('#hero')} className="flex items-center gap-2 group">

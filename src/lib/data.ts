@@ -197,7 +197,7 @@ export const skills = {
 
 export const stats = [
   { label: 'Years Experience', value: '2+', suffix: '' },
-  { label: 'Projects Shipped', value: '15', suffix: '+' },
+  { label: 'Projects Shipped', value: '3', suffix: '+' },
   { label: 'Deploy Speed Improved', value: '15', suffix: '%' },
   { label: 'Awards Won', value: '3', suffix: '' },
 ]
