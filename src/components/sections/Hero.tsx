@@ -88,22 +88,6 @@ export function Hero() {
         </motion.div>
 
         <div className="flex flex-col items-center gap-4">
-          <motion.div
-            className="overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.35 }}
-          >
-            <motion.p
-              className="text-sm font-mono text-violet-400 tracking-widest uppercase"
-              initial={{ y: 30 }}
-              animate={{ y: 0 }}
-              transition={{ delay: 0.35, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              Full Stack Developer
-            </motion.p>
-          </motion.div>
-
           <div className="overflow-hidden">
             <motion.h1
               className="text-4xl sm:text-6xl lg:text-8xl font-bold tracking-tight text-white leading-none"
