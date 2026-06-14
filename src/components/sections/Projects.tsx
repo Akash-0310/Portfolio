@@ -1,6 +1,6 @@
 'use client'
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { motion, AnimatePresence, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion'
 import { ExternalLink, ArrowRight, X, ChevronRight, Layers, Zap, Shield, Globe } from 'lucide-react'
 import { GithubIcon } from '@/components/ui/GithubIcon'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -8,6 +8,100 @@ import { Badge } from '@/components/ui/Badge'
 import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/animations'
 import { projects } from '@/lib/data'
 import type { Project } from '@/lib/data'
+
+function ProjectCard({ project, onClick, delay }: { project: Project; onClick: () => void; delay: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const rotateX = useSpring(0, { stiffness: 400, damping: 35 })
+  const rotateY = useSpring(0, { stiffness: 400, damping: 35 })
+  const mouseX = useMotionValue(50)
+  const mouseY = useMotionValue(50)
+  const shine = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(255,255,255,0.09), transparent 55%)`
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return
+    const r = ref.current.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width
+    const y = (e.clientY - r.top) / r.height
+    rotateX.set((0.5 - y) * 12)
+    rotateY.set((x - 0.5) * 12)
+    mouseX.set(x * 100)
+    mouseY.set(y * 100)
+  }
+
+  const onMouseLeave = () => {
+    rotateX.set(0)
+    rotateY.set(0)
+  }
+
+  return (
+    <motion.div variants={fadeInUp} transition={{ delay }} style={{ perspective: 1200 }}>
+      <motion.div
+        ref={ref}
+        className="group relative rounded-3xl glass overflow-hidden cursor-pointer h-full"
+        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        onClick={onClick}
+      >
+        <motion.div
+          className="absolute inset-0 pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: shine }}
+        />
+
+        <div className={`relative h-52 bg-gradient-to-br ${project.gradient} flex items-end p-6 overflow-hidden`}>
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute inset-0 grid-bg" />
+          </div>
+          <div className="absolute top-6 right-6 flex items-center gap-2">
+            <Badge variant="success">{project.status}</Badge>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0d0d18] to-transparent" />
+          <div className="relative z-10">
+            <div className="text-xs font-mono mb-1.5 opacity-60" style={{ color: project.color }}>
+              {project.category}
+            </div>
+            <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+            <p className="text-sm font-medium mt-0.5" style={{ color: project.color }}>{project.subtitle}</p>
+          </div>
+        </div>
+
+        <div className="p-6 flex flex-col gap-4">
+          <p className="text-sm text-white/55 leading-relaxed">{project.description}</p>
+          <div className="flex flex-wrap gap-1.5">
+            {project.tech.slice(0, 5).map((t) => (
+              <Badge key={t} variant="outline">{t}</Badge>
+            ))}
+            {project.tech.length > 5 && (
+              <Badge variant="outline">+{project.tech.length - 5}</Badge>
+            )}
+          </div>
+          <div className="flex items-center justify-between pt-1">
+            <div className="flex gap-2">
+              {project.github && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-8 h-8 rounded-lg glass flex items-center justify-center text-white/40 hover:text-white/80 transition-colors">
+                  <GithubIcon className="w-3.5 h-3.5" />
+                </a>
+              )}
+              {project.live && (
+                <a href={project.live} target="_blank" rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-8 h-8 rounded-lg glass flex items-center justify-center text-white/40 hover:text-white/80 transition-colors">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-white/30 font-medium group-hover:text-violet-400 transition-colors">
+              View Case Study
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   return (
@@ -121,75 +215,12 @@ export function Projects() {
           viewport={viewportConfig}
         >
           {projects.map((project, i) => (
-            <motion.div
+            <ProjectCard
               key={project.id}
-              className="group relative rounded-3xl glass overflow-hidden cursor-pointer"
-              variants={fadeInUp}
-              transition={{ delay: i * 0.15 }}
-              whileHover={{ y: -6 }}
+              project={project}
               onClick={() => setSelectedProject(project)}
-            >
-              <div className={`relative h-52 bg-gradient-to-br ${project.gradient} flex items-end p-6 overflow-hidden`}>
-                <div className="absolute inset-0 opacity-30">
-                  <div className="absolute inset-0 grid-bg" />
-                </div>
-
-                <div className="absolute top-6 right-6 flex items-center gap-2">
-                  <Badge variant="success">{project.status}</Badge>
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0d0d18] to-transparent" />
-
-                <div className="relative z-10">
-                  <div className="text-xs font-mono mb-1.5 opacity-60" style={{ color: project.color }}>
-                    {project.category}
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-                  <p className="text-sm font-medium mt-0.5" style={{ color: project.color }}>{project.subtitle}</p>
-                </div>
-              </div>
-
-              <div className="p-6 flex flex-col gap-4">
-                <p className="text-sm text-white/55 leading-relaxed">{project.description}</p>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tech.slice(0, 5).map((t) => (
-                    <Badge key={t} variant="outline">{t}</Badge>
-                  ))}
-                  {project.tech.length > 5 && (
-                    <Badge variant="outline">+{project.tech.length - 5}</Badge>
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between pt-1">
-                  <div className="flex gap-2">
-                    {project.github && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="w-8 h-8 rounded-lg glass flex items-center justify-center text-white/40 hover:text-white/80 transition-colors">
-                        <GithubIcon className="w-3.5 h-3.5" />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="w-8 h-8 rounded-lg glass flex items-center justify-center text-white/40 hover:text-white/80 transition-colors">
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-white/30 font-medium group-hover:text-violet-400 transition-colors">
-                    View Case Study
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </div>
-
-              <motion.div
-                className="absolute inset-0 rounded-3xl pointer-events-none"
-                style={{ background: `radial-gradient(circle 300px at var(--mx) var(--my), ${project.color}08, transparent)` }}
-              />
-            </motion.div>
+              delay={i * 0.15}
+            />
           ))}
         </motion.div>
 

@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { fadeInUp, viewportConfig } from '@/lib/animations'
+import { ScrambleText } from '@/components/ui/ScrambleText'
 
 interface SectionHeaderProps {
   tag?: string
@@ -44,7 +45,7 @@ export function SectionHeader({
       >
         {title}{' '}
         {titleHighlight && (
-          <span className="text-gradient">{titleHighlight}</span>
+          <ScrambleText text={titleHighlight} className="text-gradient" />
         )}
       </motion.h2>
 

@@ -9,6 +9,7 @@ import { HeroBackground } from '@/components/effects/GridBackground'
 import { FloatingParticles } from '@/components/effects/FloatingParticles'
 import { AvailabilityBadge } from '@/components/ui/Badge'
 import { siteConfig, roles } from '@/lib/data'
+import { MagneticWrapper } from '@/components/ui/MagneticWrapper'
 
 const FLOATING_TECH = [
   { icon: '⚛', label: 'React', x: '8%', y: '20%', delay: 0 },
@@ -129,28 +130,32 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto"
+          className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.85, duration: 0.6 }}
         >
-          <a
-            href="#projects"
-            onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
-            className="group flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-violet-600 text-white text-sm font-semibold shadow-lg shadow-violet-500/25 hover:bg-violet-500 hover:shadow-violet-500/40 transition-all duration-200"
-          >
-            <Sparkles className="w-4 h-4" />
-            View My Work
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-          </a>
+          <MagneticWrapper className="w-full sm:w-auto">
+            <a
+              href="#projects"
+              onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
+              className="group flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-violet-600 text-white text-sm font-semibold shadow-lg shadow-violet-500/25 hover:bg-violet-500 hover:shadow-violet-500/40 transition-all duration-200 w-full"
+            >
+              <Sparkles className="w-4 h-4" />
+              View My Work
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+            </a>
+          </MagneticWrapper>
 
-          <a
-            href={`mailto:${siteConfig.email}`}
-            className="flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl glass border border-white/10 text-white/70 text-sm font-medium hover:text-white hover:border-white/20 transition-all duration-200"
-          >
-            <Globe className="w-4 h-4" />
-            Let&apos;s Talk
-          </a>
+          <MagneticWrapper className="w-full sm:w-auto">
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl glass border border-white/10 text-white/70 text-sm font-medium hover:text-white hover:border-white/20 transition-all duration-200 w-full"
+            >
+              <Globe className="w-4 h-4" />
+              Let&apos;s Talk
+            </a>
+          </MagneticWrapper>
         </motion.div>
 
         <motion.div

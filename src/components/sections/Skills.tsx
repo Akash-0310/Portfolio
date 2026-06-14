@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/animations'
@@ -72,6 +72,18 @@ export function Skills() {
   const [activeCategory, setActiveCategory] = useState<SkillCategory>('frontend')
   const categories = Object.keys(skills) as SkillCategory[]
   const active = skills[activeCategory]
+  const spotlightRef = useRef<HTMLDivElement>(null)
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50, visible: false })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!spotlightRef.current) return
+    const r = spotlightRef.current.getBoundingClientRect()
+    setSpotlight({
+      x: ((e.clientX - r.left) / r.width) * 100,
+      y: ((e.clientY - r.top) / r.height) * 100,
+      visible: true,
+    })
+  }
 
   return (
     <section id="skills" className="relative section-pad overflow-hidden">
@@ -90,7 +102,19 @@ export function Skills() {
         />
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          <div className="flex flex-col gap-8">
+          <div
+            ref={spotlightRef}
+            className="flex flex-col gap-8 relative"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setSpotlight((s) => ({ ...s, visible: false }))}
+          >
+            <div
+              className="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300"
+              style={{
+                opacity: spotlight.visible ? 1 : 0,
+                background: `radial-gradient(circle 280px at ${spotlight.x}% ${spotlight.y}%, ${active.color}14, transparent)`,
+              }}
+            />
             <motion.div
               className="flex flex-wrap gap-2"
               variants={staggerContainer}
