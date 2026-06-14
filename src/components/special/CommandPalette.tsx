@@ -63,7 +63,7 @@ export function CommandPalette() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="absolute inset-0 bg-[#080810]/80 backdrop-blur-xl" onClick={() => setOpen(false)} />
+          <div className="absolute inset-0 backdrop-blur-xl" style={{ background: 'var(--page-bg-90)' }} onClick={() => setOpen(false)} />
           <motion.div
             className="relative w-full max-w-lg mx-4 rounded-2xl glass-strong overflow-hidden shadow-2xl shadow-black/40"
             initial={{ scale: 0.95, y: -20, opacity: 0 }}

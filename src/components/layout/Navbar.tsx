@@ -57,7 +57,7 @@ export function Navbar() {
         <div
           className={`absolute inset-0 -z-10 pointer-events-none transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`}
           style={{
-            background: 'linear-gradient(to bottom, rgba(8,8,16,0.9) 0%, rgba(8,8,16,0.55) 55%, transparent 100%)',
+            background: 'linear-gradient(to bottom, var(--page-bg-90) 0%, var(--page-bg-55) 55%, transparent 100%)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
             WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
@@ -124,7 +124,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <div className="absolute inset-0 bg-[#080810]/95 backdrop-blur-xl" onClick={() => setMobileOpen(false)} />
+            <div className="absolute inset-0 backdrop-blur-xl" style={{ background: 'var(--page-bg-90)' }} onClick={() => setMobileOpen(false)} />
             <motion.div
               className="relative glass rounded-2xl p-5 flex flex-col gap-1"
               initial={{ y: -20, opacity: 0 }}

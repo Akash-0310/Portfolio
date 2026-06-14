@@ -55,7 +55,7 @@ function ProjectCard({ project, onClick, delay }: { project: Project; onClick: (
           <div className="absolute top-6 right-6 flex items-center gap-2">
             <Badge variant="success">{project.status}</Badge>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0d0d18] to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-32" style={{ background: 'linear-gradient(to top, var(--page-bg), transparent)' }} />
           <div className="relative z-10">
             <div className="text-xs font-mono mb-1.5 opacity-60" style={{ color: project.color }}>
               {project.category}
@@ -111,7 +111,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <motion.div className="absolute inset-0 bg-[#080810]/90 backdrop-blur-xl" onClick={onClose} />
+      <motion.div className="absolute inset-0 backdrop-blur-xl" style={{ background: 'var(--page-bg-90)' }} onClick={onClose} />
       <motion.div
         className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl glass-strong"
         initial={{ scale: 0.9, y: 40, opacity: 0 }}
@@ -123,7 +123,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           <div className={`h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
             <div className="text-6xl opacity-80">{project.category.split(' · ')[0] === 'Healthcare' ? '🏥' : '🛍'}</div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080810] via-transparent to-transparent" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--page-bg), transparent, transparent)' }} />
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-9 h-9 rounded-xl glass flex items-center justify-center text-white/60 hover:text-white transition-colors"

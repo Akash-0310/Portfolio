@@ -26,7 +26,7 @@ export default function Home() {
 
   if (!mounted) {
     return (
-      <div className="fixed inset-0 bg-[#080810] flex items-center justify-center">
+      <div className="fixed inset-0 flex items-center justify-center" style={{ background: 'var(--page-bg)' }}>
         <div className="text-white/20 text-sm font-mono">Loading...</div>
       </div>
     )

@@ -36,7 +36,7 @@ export function Blog() {
               <div className={`h-36 bg-gradient-to-br ${post.gradient} relative overflow-hidden flex items-center justify-center`}>
                 <div className="absolute inset-0 grid-bg opacity-20" />
                 <BookOpen className="w-10 h-10 text-white/20" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d18] via-transparent to-transparent" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--page-bg), transparent, transparent)' }} />
               </div>
 
               <div className="p-6 flex flex-col gap-4 flex-1">

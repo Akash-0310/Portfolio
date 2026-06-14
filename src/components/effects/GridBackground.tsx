@@ -24,7 +24,7 @@ export function GridBackground({ variant = 'grid', children }: GridBackgroundPro
             : 'none',
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#080810]" />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent, transparent, var(--page-bg))' }} />
       {children}
     </div>
   )
@@ -51,7 +51,7 @@ export function HeroBackground() {
             : 'none',
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#080810]/40 via-transparent to-[#080810]" />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, var(--page-bg-40), transparent, var(--page-bg))' }} />
     </div>
   )
 }
