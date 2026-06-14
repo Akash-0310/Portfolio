@@ -110,20 +110,24 @@ export function GitHubStats() {
               <span className="text-xs text-white/30 font-mono">Last 12 months</span>
             </div>
 
-            <div className="overflow-x-auto pb-2">
-              <div className="flex gap-0.5" style={{ minWidth: 'fit-content' }}>
-                {weeks.map((week, weekIdx) => (
-                  <div key={weekIdx} className="flex flex-col gap-0.5">
-                    {week.map((level, dayIdx) => (
-                      <div
-                        key={dayIdx}
-                        className="w-2.5 h-2.5 rounded-sm"
-                        style={{ background: INTENSITY_COLORS[level] || INTENSITY_COLORS[0] }}
-                      />
-                    ))}
-                  </div>
-                ))}
-              </div>
+            <div
+              className="w-full"
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(52, 1fr)', gap: '2px' }}
+            >
+              {weeks.map((week, weekIdx) => (
+                <div key={weekIdx} className="flex flex-col gap-0.5">
+                  {week.map((level, dayIdx) => (
+                    <div
+                      key={dayIdx}
+                      className="rounded-sm w-full"
+                      style={{
+                        aspectRatio: '1',
+                        background: INTENSITY_COLORS[level] || INTENSITY_COLORS[0],
+                      }}
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
 
             <div className="flex items-center gap-2 text-xs text-white/25">
