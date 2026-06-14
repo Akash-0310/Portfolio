@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Code2, Globe, Zap } from 'lucide-react'
+import { ArrowRight, Sparkles, Code2, Globe, Zap, Download } from 'lucide-react'
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon'
 import { GithubIcon } from '@/components/ui/GithubIcon'
 import { InstagramIcon } from '@/components/ui/InstagramIcon'
@@ -154,6 +154,17 @@ export function Hero() {
             >
               <Globe className="w-4 h-4" />
               Let&apos;s Talk
+            </a>
+          </MagneticWrapper>
+
+          <MagneticWrapper className="w-full sm:w-auto">
+            <a
+              href="/Akash_resume.pdf"
+              download="Akash_Singh_Resume.pdf"
+              className="flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl border border-violet-500/30 text-violet-300/80 text-sm font-medium hover:text-violet-200 hover:border-violet-400/50 hover:bg-violet-500/10 transition-all duration-200 w-full"
+            >
+              <Download className="w-4 h-4" />
+              Resume
             </a>
           </MagneticWrapper>
         </motion.div>
