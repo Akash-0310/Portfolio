@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Send, CheckCircle, Phone, Zap, MessageSquare } from 'lucide-react'
+import { Mail, MapPin, Send, CheckCircle, AlertCircle, Phone, Zap, MessageSquare } from 'lucide-react'
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon'
 import { GithubIcon } from '@/components/ui/GithubIcon'
 import { InstagramIcon } from '@/components/ui/InstagramIcon'
@@ -18,8 +18,17 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setFormState('submitting')
-    await new Promise((r) => setTimeout(r, 1500))
-    setFormState('success')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed')
+      setFormState('success')
+    } catch {
+      setFormState('error')
+    }
   }
 
   return (
@@ -114,7 +123,26 @@ export function Contact() {
             whileInView="visible"
             viewport={viewportConfig}
           >
-            {formState === 'success' ? (
+            {formState === 'error' ? (
+              <motion.div
+                className="h-full flex flex-col items-center justify-center gap-6 p-10 rounded-3xl glass text-center"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              >
+                <div className="w-16 h-16 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
+                  <AlertCircle className="w-8 h-8 text-red-400" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">Something went wrong</h3>
+                  <p className="text-sm text-white/50">Couldn&apos;t send your message. Please try emailing directly.</p>
+                </div>
+                <button onClick={() => setFormState('idle')}
+                  className="text-sm text-violet-400 hover:text-violet-300 transition-colors">
+                  Try again
+                </button>
+              </motion.div>
+            ) : formState === 'success' ? (
               <motion.div
                 className="h-full flex flex-col items-center justify-center gap-6 p-10 rounded-3xl glass text-center"
                 initial={{ opacity: 0, scale: 0.9 }}

@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: 'Akash Singh',
   title: 'Full Stack Developer',
-  email: 'akashdevtech10@gmail.com',
+  email: 'akashsinghp10@gmail.com',
   phone: '+91-9340041985',
   location: 'Indore, Madhya Pradesh, India',
   github: 'https://github.com/Akash-0310',
