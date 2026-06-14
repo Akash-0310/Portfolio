@@ -93,12 +93,12 @@ export function Navbar() {
             </div>
 
             <div className="flex items-center gap-3">
-              <a
-                href={`mailto:${siteConfig.email}`}
+              <button
+                onClick={() => scrollTo('#contact')}
                 className="hidden lg:inline-flex items-center px-4 py-2 rounded-xl bg-violet-600/15 border border-violet-500/25 text-violet-300 text-sm font-medium hover:bg-violet-600/25 transition-all duration-200"
               >
                 Hire Me
-              </a>
+              </button>
               <button
                 className="lg:hidden p-2 rounded-lg hover:bg-white/5 text-white/70 transition-colors"
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -146,9 +146,9 @@ export function Navbar() {
                 </motion.button>
               ))}
               <div className="mt-3 pt-3 border-t border-white/8">
-                <a href={`mailto:${siteConfig.email}`} className="flex items-center justify-center w-full px-4 py-3 rounded-xl bg-violet-600 text-white text-sm font-medium">
+                <button onClick={() => scrollTo('#contact')} className="flex items-center justify-center w-full px-4 py-3 rounded-xl bg-violet-600 text-white text-sm font-medium">
                   Get In Touch
-                </a>
+                </button>
               </div>
             </motion.div>
           </motion.div>
