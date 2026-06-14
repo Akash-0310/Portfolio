@@ -58,7 +58,7 @@ export function Contact() {
             {[
               { icon: Mail, label: 'Email', value: siteConfig.email, href: `mailto:${siteConfig.email}`, color: '#8b5cf6' },
               { icon: Phone, label: 'Phone', value: siteConfig.phone, href: `https://wa.me/${siteConfig.phone.replace(/\D/g, '')}`, external: true, color: '#06b6d4' },
-              { icon: MapPin, label: 'Location', value: siteConfig.location, href: '#', color: '#10b981' },
+              { icon: MapPin, label: 'Location', value: siteConfig.location, href: 'https://maps.google.com/?q=Indore,Madhya+Pradesh,India', external: true, color: '#10b981' },
             ].map(({ icon: Icon, label, value, href, color, external }) => (
               <motion.a
                 key={label}

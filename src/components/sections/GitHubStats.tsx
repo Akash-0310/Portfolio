@@ -16,12 +16,13 @@ const INTENSITY_COLORS = [
   'rgba(139,92,246,0.95)',
 ]
 
-// Placeholder grid shown until live data arrives, so the layout never jumps.
-const PLACEHOLDER_CALENDAR = Array.from({ length: 53 * 7 }, () => 0)
+const WEEKS = 52
+const PLACEHOLDER_CALENDAR = Array.from({ length: WEEKS * 7 }, () => 0)
 
 function chunkWeeks(levels: number[]): number[][] {
+  const trimmed = levels.slice(-(WEEKS * 7))
   const weeks: number[][] = []
-  for (let i = 0; i < levels.length; i += 7) weeks.push(levels.slice(i, i + 7))
+  for (let i = 0; i < trimmed.length; i += 7) weeks.push(trimmed.slice(i, i + 7))
   return weeks
 }
 
