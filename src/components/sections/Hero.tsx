@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { useTheme } from 'next-themes'
 import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Code2, Globe, Zap, Download } from 'lucide-react'
 import { LinkedinIcon } from '@/components/ui/LinkedinIcon'
@@ -22,6 +23,8 @@ const FLOATING_TECH = [
 ]
 
 export function Hero() {
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme !== 'light'
   const [roleIdx, setRoleIdx] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
@@ -59,7 +62,7 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 md:px-12 lg:px-20">
-      <StarfieldBackground />
+      {isDark && <StarfieldBackground />}
       <HeroBackground />
       <FloatingParticles />
 
