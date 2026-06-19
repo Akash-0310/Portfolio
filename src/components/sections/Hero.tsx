@@ -208,15 +208,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1 }}
-      >
-        <span className="text-xs text-white/25 font-mono tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-violet-400/50 to-transparent" />
-      </motion.div>
     </section>
   )
 }
