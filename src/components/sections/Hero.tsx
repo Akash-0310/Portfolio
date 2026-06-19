@@ -13,12 +13,12 @@ import { siteConfig, roles } from '@/lib/data'
 import { MagneticWrapper } from '@/components/ui/MagneticWrapper'
 
 const FLOATING_TECH = [
-  { icon: '⚛', label: 'React', x: '8%', y: '20%', delay: 0 },
-  { icon: '🟢', label: 'Node.js', x: '88%', y: '15%', delay: 0.3 },
-  { icon: '🍃', label: 'MongoDB', x: '5%', y: '65%', delay: 0.6 },
-  { icon: '🐳', label: 'Docker', x: '90%', y: '60%', delay: 0.9 },
-  { icon: '☁', label: 'AWS', x: '82%', y: '82%', delay: 1.2 },
-  { icon: '▲', label: 'Next.js', x: '12%', y: '82%', delay: 0.45 },
+  { icon: '⚛', label: 'React',   sub: 'Frontend', x: '7%',  y: '18%', delay: 0,    color: '#61DAFB' },
+  { icon: '⬡', label: 'Node.js', sub: 'Runtime',  x: '86%', y: '14%', delay: 0.3,  color: '#6DA55F' },
+  { icon: '🍃', label: 'MongoDB', sub: 'Database', x: '4%',  y: '62%', delay: 0.6,  color: '#47A248' },
+  { icon: '🐳', label: 'Docker',  sub: 'DevOps',   x: '88%', y: '58%', delay: 0.9,  color: '#2496ED' },
+  { icon: '☁',  label: 'AWS',     sub: 'Cloud',    x: '80%', y: '80%', delay: 1.2,  color: '#FF9900' },
+  { icon: '▲',  label: 'Next.js', sub: 'Framework',x: '10%', y: '80%', delay: 0.45, color: '#ffffff' },
 ]
 
 export function Hero() {
@@ -66,18 +66,47 @@ export function Hero() {
       {FLOATING_TECH.map((t) => (
         <motion.div
           key={t.label}
-          className="absolute hidden lg:flex items-center gap-1.5 glass rounded-xl px-3 py-2 text-xs font-medium text-white/50"
-          style={{ left: t.x, top: t.y }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1, y: [0, -8, 0] }}
+          className="absolute hidden lg:flex items-center gap-3 rounded-2xl px-4 py-3 cursor-default"
+          style={{
+            left: t.x, top: t.y,
+            background: `${t.color}0d`,
+            border: `1px solid ${t.color}28`,
+            boxShadow: `0 0 22px ${t.color}12, inset 0 1px 0 ${t.color}18`,
+            backdropFilter: 'blur(12px)',
+          }}
+          initial={{ opacity: 0, scale: 0.75, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
           transition={{
-            opacity: { delay: 0.8 + t.delay, duration: 0.4 },
-            scale: { delay: 0.8 + t.delay, duration: 0.4 },
-            y: { delay: 0.8 + t.delay, duration: 4 + t.delay, repeat: Infinity, ease: 'easeInOut' },
+            opacity: { delay: 0.8 + t.delay, duration: 0.5 },
+            scale:   { delay: 0.8 + t.delay, duration: 0.5, type: 'spring', stiffness: 260, damping: 20 },
+            y:       { delay: 0.8 + t.delay, duration: 3.8 + t.delay * 0.6, repeat: Infinity, ease: 'easeInOut' },
+          }}
+          whileHover={{
+            scale: 1.08,
+            boxShadow: `0 0 36px ${t.color}35, inset 0 1px 0 ${t.color}30`,
+            borderColor: `${t.color}50`,
           }}
         >
-          <span>{t.icon}</span>
-          <span>{t.label}</span>
+          {/* Icon box */}
+          <div
+            className="w-8 h-8 rounded-xl flex items-center justify-center text-base shrink-0"
+            style={{
+              background: `${t.color}18`,
+              border: `1px solid ${t.color}30`,
+              boxShadow: `0 0 10px ${t.color}20`,
+            }}
+          >
+            {t.icon}
+          </div>
+          {/* Label + sub */}
+          <div className="flex flex-col gap-0.5">
+            <span className="text-xs font-semibold leading-none" style={{ color: `${t.color}ee` }}>
+              {t.label}
+            </span>
+            <span className="text-[10px] leading-none font-medium" style={{ color: `${t.color}66` }}>
+              {t.sub}
+            </span>
+          </div>
         </motion.div>
       ))}
 
