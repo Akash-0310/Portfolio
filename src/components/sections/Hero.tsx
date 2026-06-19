@@ -7,6 +7,7 @@ import { GithubIcon } from '@/components/ui/GithubIcon'
 import { InstagramIcon } from '@/components/ui/InstagramIcon'
 import { HeroBackground } from '@/components/effects/GridBackground'
 import { FloatingParticles } from '@/components/effects/FloatingParticles'
+import { StarfieldBackground } from '@/components/effects/StarfieldBackground'
 import { AvailabilityBadge } from '@/components/ui/Badge'
 import { siteConfig, roles } from '@/lib/data'
 import { MagneticWrapper } from '@/components/ui/MagneticWrapper'
@@ -58,6 +59,7 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 md:px-12 lg:px-20">
+      <StarfieldBackground />
       <HeroBackground />
       <FloatingParticles />
 
