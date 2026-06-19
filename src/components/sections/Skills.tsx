@@ -1,95 +1,125 @@
 'use client'
-import { useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/animations'
-import { skills } from '@/lib/data'
 
-type SkillCategory = keyof typeof skills
+const primaryCategories = [
+  {
+    label: 'Frontend',
+    color: '#8b5cf6',
+    icon: '◈',
+    techs: ['React.js', 'Next.js', 'JavaScript ES6+', 'TypeScript', 'Tailwind CSS', 'HTML5 / CSS3', 'Bootstrap'],
+  },
+  {
+    label: 'Backend',
+    color: '#06b6d4',
+    icon: '◎',
+    techs: ['Node.js', 'Express.js', 'REST APIs', 'Microservices', 'JWT Auth', 'Socket.io', 'Strapi', 'Nginx'],
+  },
+  {
+    label: 'Database',
+    color: '#f59e0b',
+    icon: '◉',
+    techs: ['MongoDB', 'MySQL', 'Redis', 'Firebase', 'Prisma'],
+  },
+]
 
-function SkillBar({ name, level, color, delay = 0 }: { name: string; level: number; color: string; delay?: number }) {
+const secondaryCategories = [
+  {
+    label: 'Deployment',
+    color: '#10b981',
+    icon: '▲',
+    techs: ['AWS', 'Azure', 'Vercel', 'Netlify', 'Render', 'Docker', 'Jenkins', 'CI/CD'],
+  },
+  {
+    label: 'Tools',
+    color: '#f43f5e',
+    icon: '◇',
+    techs: ['Git', 'GitHub', 'GitLab', 'Figma', 'Canva', 'Jest', 'Playwright', 'Sentry', 'Jira', 'Grafana', 'Notion', 'Postman', 'VS Code'],
+  },
+  {
+    label: 'Languages',
+    color: '#3b82f6',
+    icon: '◈',
+    techs: ['JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Python', 'C', 'C++'],
+  },
+]
+
+function TechCard({ name, color, delay = 0 }: { name: string; color: string; delay?: number }) {
   return (
-    <motion.div
-      className="flex flex-col gap-1.5"
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
+    <motion.span
+      className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium cursor-default select-none"
+      style={{
+        background: `${color}10`,
+        border: `1px solid ${color}28`,
+        color: `${color}bb`,
+        boxShadow: `0 0 8px ${color}10`,
+      }}
+      initial={{ opacity: 0, scale: 0.88 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ delay, duration: 0.5 }}
+      transition={{ delay, duration: 0.3, ease: 'easeOut' }}
+      whileHover={{
+        boxShadow: `0 0 18px ${color}55, 0 0 6px ${color}30`,
+        borderColor: `${color}60`,
+        scale: 1.07,
+        color,
+      }}
     >
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-white/70 font-medium">{name}</span>
-        <span className="text-xs font-mono" style={{ color }}>{level}%</span>
-      </div>
-      <div className="h-1.5 bg-white/6 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full rounded-full"
-          style={{ background: `linear-gradient(90deg, ${color}, ${color}80)` }}
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true }}
-          transition={{ delay: delay + 0.2, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-        />
-      </div>
-    </motion.div>
+      {name}
+    </motion.span>
   )
 }
 
-function SkillNode({ name, level, color, index, total }: { name: string; level: number; color: string; index: number; total: number }) {
-  const angle = (index / total) * 360 - 90
-  const radius = 120
-  const x = Math.cos((angle * Math.PI) / 180) * radius
-  const y = Math.sin((angle * Math.PI) / 180) * radius
-  const size = 28 + (level / 100) * 20
-
+function CategoryColumn({
+  label,
+  color,
+  icon,
+  techs,
+  baseDelay = 0,
+}: {
+  label: string
+  color: string
+  icon: string
+  techs: string[]
+  baseDelay?: number
+}) {
   return (
     <motion.div
-      className="absolute flex items-center justify-center rounded-full border text-xs font-bold cursor-default"
+      className="flex flex-col gap-3 p-5 rounded-2xl transition-colors duration-200"
       style={{
-        width: size,
-        height: size,
-        left: '50%',
-        top: '50%',
-        x: x - size / 2,
-        y: y - size / 2,
-        borderColor: `${color}40`,
-        background: `${color}15`,
-        color,
-        fontSize: 'calc(9px * var(--font-scale))',
+        background: `${color}07`,
+        border: `1px solid ${color}18`,
       }}
-      initial={{ opacity: 0, scale: 0 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08, type: 'spring', stiffness: 300, damping: 25 }}
-      whileHover={{ scale: 1.2, zIndex: 10 }}
-      title={`${name}: ${level}%`}
+      variants={fadeInUp}
+      whileHover={{ borderColor: `${color}35` }}
     >
-      {name.slice(0, 2).toUpperCase()}
+      <div className="flex items-center gap-2">
+        <span className="text-base leading-none" style={{ color }}>{icon}</span>
+        <h3 className="text-sm font-semibold text-white/80 tracking-wide uppercase">{label}</h3>
+      </div>
+      <div className="h-px" style={{ background: `${color}22` }} />
+      <div className="flex flex-wrap gap-2">
+        {techs.map((tech, i) => (
+          <TechCard key={tech} name={tech} color={color} delay={baseDelay + i * 0.05} />
+        ))}
+      </div>
     </motion.div>
   )
 }
 
 export function Skills() {
-  const [activeCategory, setActiveCategory] = useState<SkillCategory>('frontend')
-  const categories = Object.keys(skills) as SkillCategory[]
-  const active = skills[activeCategory]
-  const spotlightRef = useRef<HTMLDivElement>(null)
-  const [spotlight, setSpotlight] = useState({ x: 50, y: 50, visible: false })
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!spotlightRef.current) return
-    const r = spotlightRef.current.getBoundingClientRect()
-    setSpotlight({
-      x: ((e.clientX - r.left) / r.width) * 100,
-      y: ((e.clientY - r.top) / r.height) * 100,
-      visible: true,
-    })
-  }
-
   return (
     <section id="skills" className="relative section-pad overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full opacity-5"
-          style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.5), transparent)' }} />
+        <div
+          className="absolute top-1/4 right-0 w-96 h-96 rounded-full opacity-5"
+          style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.5), transparent)' }}
+        />
+        <div
+          className="absolute bottom-1/3 left-0 w-80 h-80 rounded-full opacity-4"
+          style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.4), transparent)' }}
+        />
       </div>
 
       <div className="max-w-6xl mx-auto">
@@ -101,144 +131,33 @@ export function Skills() {
           align="center"
         />
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          <div
-            ref={spotlightRef}
-            className="flex flex-col gap-8 relative"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={() => setSpotlight((s) => ({ ...s, visible: false }))}
-          >
-            <div
-              className="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300"
-              style={{
-                opacity: spotlight.visible ? 1 : 0,
-                background: `radial-gradient(circle 280px at ${spotlight.x}% ${spotlight.y}%, ${active.color}14, transparent)`,
-              }}
-            />
-            <motion.div
-              className="flex flex-wrap gap-2"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportConfig}
-            >
-              {categories.map((cat) => {
-                const catData = skills[cat]
-                return (
-                  <motion.button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                      activeCategory === cat
-                        ? 'text-white shadow-lg'
-                        : 'glass text-white/50 hover:text-white/80'
-                    }`}
-                    style={activeCategory === cat ? {
-                      background: `${catData.color}20`,
-                      border: `1px solid ${catData.color}40`,
-                      boxShadow: `0 0 20px ${catData.color}20`,
-                      color: catData.color,
-                    } : {}}
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>{catData.icon}</span>
-                    {catData.label}
-                  </motion.button>
-                )
-              })}
-            </motion.div>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeCategory}
-                className="flex flex-col gap-4"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-              >
-                {active.items.map((skill, i) => (
-                  <SkillBar
-                    key={skill.name}
-                    name={skill.name}
-                    level={skill.level}
-                    color={active.color}
-                    delay={i * 0.05}
-                  />
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
+        <div className="flex flex-col gap-5 mt-12">
           <motion.div
-            className="relative hidden lg:flex items-center justify-center"
-            style={{ height: 340 }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
             viewport={viewportConfig}
           >
-            <motion.div
-              className="absolute w-24 h-24 rounded-full flex items-center justify-center z-10"
-              style={{ background: `${active.color}15`, border: `1px solid ${active.color}30` }}
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              <span className="text-3xl">{active.icon}</span>
-            </motion.div>
-
-            {[100, 140, 180].map((r) => (
-              <motion.div
-                key={r}
-                className="absolute rounded-full border"
-                style={{
-                  width: r * 2,
-                  height: r * 2,
-                  borderColor: `${active.color}12`,
-                }}
-                animate={{ scale: [1, 1.02, 1], rotate: [0, r === 140 ? 360 : -360] }}
-                transition={{ duration: 20 + r / 10, repeat: Infinity, ease: 'linear' }}
-              />
+            {primaryCategories.map((cat, i) => (
+              <CategoryColumn key={cat.label} {...cat} baseDelay={i * 0.08} />
             ))}
+          </motion.div>
 
-            {active.items.map((skill, i) => (
-              <SkillNode
-                key={skill.name}
-                name={skill.name}
-                level={skill.level}
-                color={active.color}
-                index={i}
-                total={active.items.length}
-              />
+          <div className="h-px bg-white/5" />
+
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
+            {secondaryCategories.map((cat, i) => (
+              <CategoryColumn key={cat.label} {...cat} baseDelay={i * 0.08} />
             ))}
           </motion.div>
         </div>
-
-        <motion.div
-          className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-        >
-          {categories.map((cat) => {
-            const catData = skills[cat]
-            return (
-              <motion.div
-                key={cat}
-                className="p-4 rounded-2xl glass text-center cursor-pointer hover:border-white/15 transition-all"
-                variants={fadeInUp}
-                whileHover={{ y: -3 }}
-                onClick={() => setActiveCategory(cat)}
-              >
-                <div className="text-2xl mb-2">{catData.icon}</div>
-                <div className="text-sm font-semibold text-white mb-1">{catData.label}</div>
-                <div className="text-xs text-white/35">{catData.items.length} technologies</div>
-              </motion.div>
-            )
-          })}
-        </motion.div>
       </div>
     </section>
   )
