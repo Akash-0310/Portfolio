@@ -229,7 +229,7 @@ export function Hero() {
           <div className="flex items-center gap-5 text-xs text-white/30 font-mono">
             {[
               { icon: Code2, label: '2+ yrs' },
-              { icon: Zap, label: '3+ projects' },
+              { icon: Zap, label: '4+ projects' },
             ].map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-1.5">
                 <Icon className="w-3 h-3 text-violet-400" />
