@@ -60,10 +60,13 @@ function computeStreaks(days: { count: number }[]): { current: number; longest: 
       run = 0
     }
   }
-  // Current streak: count back from the most recent day.
+  // Current streak: consecutive active days ending today. If today has no
+  // contributions *yet*, it doesn't break the streak — count through yesterday.
+  // This mirrors how GitHub streak trackers behave.
   let current = 0
   for (let i = days.length - 1; i >= 0; i--) {
     if (days[i].count > 0) current++
+    else if (i === days.length - 1) continue
     else break
   }
   return { current, longest }
@@ -75,8 +78,11 @@ async function fetchJSON(url: string, init?: RequestInit): Promise<unknown> {
   return res.json()
 }
 
-export async function fetchGitHubData(): Promise<GitHubData> {
-  const data: GitHubData = { ...FALLBACK, languages: [...FALLBACK.languages] }
+// Returns only the fields it could fetch live. Callers should merge the result
+// over their current state (starting from FALLBACK) — that way a partial or
+// rate-limited fetch never clobbers previously-good values with fallbacks.
+export async function fetchGitHubData(): Promise<Partial<GitHubData>> {
+  const data: Partial<GitHubData> = {}
 
   const tasks: Promise<void>[] = []
 
@@ -130,23 +136,43 @@ export async function fetchGitHubData(): Promise<GitHubData> {
     })().catch(() => {})
   )
 
-  // Contribution calendar → graph, total, streaks.
+  // Contribution data → calendar, past-year total, and both streaks.
+  // Two views of the same source:
+  //   • ?y=last   → the trailing 12 months, already bounded to today. Drives the
+  //                 heatmap, the authoritative "past year" total, and the *current*
+  //                 streak (which never spans more than a year).
+  //   • full hist → every year, so the *longest* streak reflects all-time activity.
+  const CONTRIB = `https://github-contributions-api.jogruber.de/v4/${USERNAME}`
   tasks.push(
     (async () => {
-      const c = (await fetchJSON(
-        `https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`
-      )) as { total?: Record<string, number>; contributions?: { count: number; level: number }[] }
+      const [last, all] = await Promise.all([
+        fetchJSON(`${CONTRIB}?y=last`) as Promise<{
+          total?: Record<string, number>
+          contributions?: { date: string; count: number; level: number }[]
+        }>,
+        fetchJSON(CONTRIB).catch(() => null) as Promise<{
+          contributions?: { date: string; count: number; level: number }[]
+        } | null>,
+      ])
 
-      const days = c.contributions || []
+      const days = last.contributions || []
       if (days.length) {
         data.calendar = days.map((d) => d.level)
+        // Use the API's own last-year total — the exact number GitHub displays.
         data.contributions =
-          (c.total && (c.total.lastYear ?? Object.values(c.total)[0])) ||
+          (last.total && (last.total.lastYear ?? Object.values(last.total)[0])) ||
           days.reduce((a, d) => a + d.count, 0)
-        const { current } = computeStreaks(days)
-        data.currentStreak = current
-        // longestStreak is intentionally fixed (not derived from GitHub)
+        data.currentStreak = computeStreaks(days).current
       }
+
+      // All-time longest streak. Years come grouped, so sort into one timeline;
+      // trailing future/zero days don't affect a longest-run scan. Falls back to
+      // the last-year window if the full-history request failed.
+      const history =
+        all && all.contributions
+          ? all.contributions.slice().sort((a, b) => a.date.localeCompare(b.date))
+          : days
+      if (history.length) data.longestStreak = computeStreaks(history).longest
     })().catch(() => {})
   )
 

@@ -31,13 +31,22 @@ export function GitHubStats() {
 
   useEffect(() => {
     let active = true
-    fetchGitHubData()
-      .then((d) => {
-        if (active) setData(d)
-      })
-      .catch(() => {})
+    const load = () =>
+      fetchGitHubData()
+        .then((fresh) => {
+          // Merge over the last good state: fields that couldn't be fetched this
+          // round are simply absent, so they keep their previous (good) values
+          // instead of reverting to the fallback.
+          if (active) setData((prev) => ({ ...prev, ...fresh }))
+        })
+        .catch(() => {})
+
+    load()
+    // Refresh every minute so the section keeps matching GitHub without a reload.
+    const id = setInterval(load, 60_000)
     return () => {
       active = false
+      clearInterval(id)
     }
   }, [])
 
